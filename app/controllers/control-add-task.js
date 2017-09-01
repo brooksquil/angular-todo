@@ -7,27 +7,29 @@
 
  */
 
-app.controller("addTaskCtrl", function($scope, todoFactory, $location){
+app.controller("addTaskCtrl", function($scope, todoFactory, $location, userFactory) {
 
-	$scope.title = "New Task";
-	$scope.submitButtonText = "Add New Task";
+    $scope.title = "New Task";
+    $scope.submitButtonText = "Add New Task";
+    let user = userFactory.getCurrentUser();
 
-	$scope.task = {
-		assignedTo: "",
-		dependencies: "",
-		dueDate: "",
-		urgency: "high",
-		task: "",
-		isCompleted: false,
-		location: ""
-	};
+    $scope.task = {
+        assignedTo: "",
+        dependencies: "",
+        dueDate: "",
+        urgency: "high",
+        task: "",
+        isCompleted: false,
+        location: "",
+        uid: user
+    };
 
-    $scope.submitTask = function(){
-    	
-    	todoFactory.addTask($scope.task)
-    	.then((data) => {
-    		$location.url("/task-list");
-    	});
+    $scope.submitTask = function() {
+
+        todoFactory.addTask($scope.task)
+            .then((data) => {
+                $location.url("/task-list");
+            });
     };
 
 
